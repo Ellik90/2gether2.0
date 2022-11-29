@@ -17,8 +17,9 @@ public class UserOperator
 
         // user.Name = ConsoleInput.GetString($"Namn:  ");
         // user.LastName = ConsoleInput.GetString($"Efternamn: ");
-        // user.Age = ConsoleInput.GetString($"Ålder: ");
-        // user.Gender = ConsoleInput.GetString($"Man kvinna hen ");
+        user.Age = ConsoleInput.GetString($"Ålder: ");
+        user.PersonalNumber = ConsoleInput.GetString($"Person nummer: ");
+        
         do
         {
             user.Email = ConsoleInput.GetString($"Email: ");
@@ -33,6 +34,7 @@ public class UserOperator
             }
         } while (exists);
         user.PassWord = ConsoleInput.GetString($"Password: ");
+        // user.Gender = ConsoleInput.GetString($"Man kvinna hen ");
         _userService.CreateUser(user);
         return user;
     }
