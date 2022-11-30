@@ -6,7 +6,6 @@ using System.Collections.Generic;
 
 public class UserDB: IUserHandeler
 {
-
     public int CreateUser(User user)
     {
         int rows = 0;
@@ -29,6 +28,22 @@ public class UserDB: IUserHandeler
         return rows;
     }
 
+    public List<User> GetUser()
+    {
+        throw new NotImplementedException();
+    }
+
+    public int UpdateUserEmail(User user, string userEmail)
+    {
+        int rows = 0;
+        using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
+        {
+            string? query = "UPDATE user_account SET email = @UserEmail WHERE id = @id";
+            rows = connection.ExecuteScalar<int>(query, param: new { @userEmail = userEmail, @id = user.Id });
+        }
+        return rows;
+    }
+
 
     public int UpdateUserPassword(User user)
     {
@@ -41,13 +56,23 @@ public class UserDB: IUserHandeler
         return rows;
     }
 
-    public int UpdateUserEmail(User user, string userEmail)
+    public bool UserEmailExists(string email)
     {
-        int rows = 0;
-        using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
+        bool rows = true;
+        using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=2gether;Uid=root;Pwd=;"))
         {
-            string? query = "UPDATE user_account SET email = @UserEmail WHERE id = @id";
-            rows = connection.ExecuteScalar<int>(query, param: new { @userEmail = userEmail, @id = user.Id });
+            string query = "SELECT * FROM user_account WHERE email = @email";
+            rows = connection.ExecuteScalar<bool>(query, new { @email = email });
+        }
+        return rows;
+    }
+    public bool UserPersonalNumberExists(string personalNumber)
+    {
+        bool rows = true;
+        using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=2gether;Uid=root;Pwd=;"))
+        {
+            string query = "SELECT * FROM user_account WHERE personal_number = @PersonalNumber";
+            rows = connection.ExecuteScalar<bool>(query, new { @personalNumber = personalNumber});
         }
         return rows;
     }
@@ -62,22 +87,9 @@ public class UserDB: IUserHandeler
             return id;
         }
     }
+}
 
-    public bool UserEmailExists(string email)
-    {
-        bool rows = true;
-        using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=2gether;Uid=root;Pwd=;"))
-        {
-            string? query = "SELECT * FROM user_account WHERE email = @email ";
-            rows = connection.ExecuteScalar<bool>(query, new { @email = email });
-        }
-        return rows;
-    }
 
-    public List<User> GetUser()
-    {
-        throw new NotImplementedException();
-    }
 
     // public List<User> GetUsers(User user)
     // {
@@ -91,4 +103,3 @@ public class UserDB: IUserHandeler
     //     }
     // }
 
-}

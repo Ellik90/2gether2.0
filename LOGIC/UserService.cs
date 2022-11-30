@@ -34,4 +34,15 @@ public class UserService : IUserService
         }
         return rows;
     }
+    public bool CheckUserPersonalNumberExists(string personalNumber)
+    {
+        bool rows = false;
+
+        if(_userHandeler.UserPersonalNumberExists(personalNumber) == true)
+        {
+            rows = true;
+        }
+        return rows;
+    }
+    
 }

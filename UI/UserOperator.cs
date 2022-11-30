@@ -18,8 +18,22 @@ public class UserOperator
         // user.Name = ConsoleInput.GetString($"Namn:  ");
         // user.LastName = ConsoleInput.GetString($"Efternamn: ");
         user.Age = ConsoleInput.GetString($"Ålder: ");
-        user.PersonalNumber = ConsoleInput.GetString($"Person nummer: ");
         
+        
+
+         do
+        {
+            user.PersonalNumber = ConsoleInput.GetString($"Person nummer: ");
+            if ((_userService.CheckUserPersonalNumberExists(user.PersonalNumber)))
+            {
+                Console.WriteLine("personal number alredy exists");
+                exists = true;
+            }
+            else
+            {
+                exists = false;
+            }
+        } while (exists);
         do
         {
             user.Email = ConsoleInput.GetString($"Email: ");
@@ -37,6 +51,11 @@ public class UserOperator
         // user.Gender = ConsoleInput.GetString($"Man kvinna hen ");
         _userService.CreateUser(user);
         return user;
+    }
+
+    public void LoginUser()
+    {
+
     }
 }
 
