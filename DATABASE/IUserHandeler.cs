@@ -6,7 +6,7 @@ public interface IUserHandeler
     public int DeleteUser(User user);  
     public bool UserEmailExists(string email);
     public bool UserPersonalNumberExists(string personalNumber);
-    public List<User> GetUser();
-    public int UpdateUserDescription(string aboutMe);
+    public User GetUser(int id);
+    public int Update(User user);
     public int UserLogInExists(User user);
 }

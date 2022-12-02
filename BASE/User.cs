@@ -11,10 +11,11 @@ public class User
     public string PersonalNumber {get;set;}
     public string PassWord { get; set; }
     public string AboutMe { get; set; }
-    public LandScape LandScape { get; set; }
+    // public LandScape LandScape { get; set; }
     public int LandscapeId{get;set;}
+    public string Landscape{get;set;}
 
-    public User(string name, string lastName, string gender, string age, string email, string personalNumber,string passWord, LandScape landScape)
+    public User(string name, string lastName, string gender, string age, string email, string personalNumber,string passWord)
     {
         Name = name;
         LastName = lastName;
@@ -23,7 +24,7 @@ public class User
         Email = email;
         PersonalNumber = personalNumber;
         PassWord = passWord;
-        LandScape = landScape;
+        // LandScape = landScape;
     }
     public User()
     {

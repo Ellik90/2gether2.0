@@ -95,17 +95,16 @@ public class UserDB : IUserHandeler
             return users;
         }
     }
-    public int UpdateUserDescription(string aboutMe)
+    public int Update(User user)
     {
         int id = 0;
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=2gether;Uid=root;Pwd=;"))
         {
-            string? query = "INSERT INTO user_account (about_me)VALUES(@aboutMe)";
-            id = connection.ExecuteScalar<int>(query, new { @aboutMe = aboutMe });
+            string? query = "UPDATE user_account SET about_me = @AboutMe, pass_word = @PassWord, email = @Email;";
+            id = connection.ExecuteScalar<int>(query, param: user);
             return id;
         }
     }
-
     public int GetAllUsersLandscapes(User user)
     {
         int id = 0;
@@ -120,10 +119,17 @@ public class UserDB : IUserHandeler
     }
 
 
-
-    public List<User> GetUser()
+    public User GetUser(int id)
     {
-        throw new NotImplementedException();
+        User user = new();
+        using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=2gether;Uid=root;Pwd=;"))
+        {
+            string query = " SELECT u.id AS 'id', u.personal_number AS 'personalNumber', u.first_name AS 'name', u.email AS 'email', u.pass_word AS 'password', l.name AS 'landscape'" +
+            "FROM user_account u INNER JOIN landscape l ON u.land_scape_id = l.id WHERE u.id = @id;";
+            user = connection.QuerySingle<User>(query, new{@id = id});
+            return user;
+        }
+
     }
 }
 

@@ -19,6 +19,10 @@ internal class Program
         {
             case 1:
                 int id = userOperator.LoginUser();
+                // hämta ut hela usern på detta id
+                User loggedInUser = new();
+                loggedInUser = userOperator.GetUser(id);
+                Console.WriteLine(loggedInUser.Name);
                 break;
             case 2:
                 user = userOperator.CreateUser();

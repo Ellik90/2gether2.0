@@ -64,9 +64,9 @@ public class UserOperator
         user.PassWord = ConsoleInput.GetString($"Enter your password: ");
         user = _loginService.UserLogIn(user);
         user.Id = _loginService.UserLoginIsValid(user);
-        if(user.Id > 0)
+        if(user.Id  < 1)
         {
-            Console.WriteLine("Inloggad med användare " + user.Id);
+            Console.WriteLine("Fel");
         }
         return user.Id;
     }
@@ -86,6 +86,11 @@ public class UserOperator
     {
         user.AboutMe = ConsoleInput.GetString("About me: ");
 
+    }
+    public User GetUser(int id)
+    {
+        User user = _userService.GetUser(id);
+        return user;
     }
 }
 

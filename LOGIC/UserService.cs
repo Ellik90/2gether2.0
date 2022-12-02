@@ -24,6 +24,11 @@ public class UserService : IUserService
             return false;
         }
     }
+    public User GetUser(int id)
+    {
+        User user = _userHandeler.GetUser(id);
+        return user;
+    }
     public bool CheckUserEmailExists(string email)
     {
         bool rows = false;
@@ -44,11 +49,11 @@ public class UserService : IUserService
         }
         return rows;
     }
-
-    public bool UpdateUserDescription(string aboutMe)
+    public bool Update(User user)
     {
+
         bool rows = false;
-        if(_userHandeler.UpdateUserDescription(aboutMe) < 1)
+        if(_userHandeler.Update(user) < 1)
         {
             rows = true;
         }
