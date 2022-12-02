@@ -4,26 +4,30 @@ using BASE;
 public class UserOperator
 {
     IUserService _userService;
+    ILoginService _loginService;
 
-    public UserOperator(IUserService userService)
+    public UserOperator(IUserService userService, ILoginService loginService)
     {
         _userService = userService;
+        _loginService = loginService;
     }
     public UserOperator() { }
 
-    public User CreateUser(User user)
+    public User CreateUser()
     {
+        LandScape landScape = new();
+        User user = new();
         bool exists = true;
 
-        // user.Name = ConsoleInput.GetString($"Namn:  ");
-        // user.LastName = ConsoleInput.GetString($"Efternamn: ");
-        user.Age = ConsoleInput.GetString($"Ålder: ");
-        
-        
-
-         do
+        user.Name = ConsoleInput.GetString($"Namn:  ");
+        user.LastName = ConsoleInput.GetString($"Efternamn: ");
+        user.Age = ConsoleInput.GetString($"Age: ");
+        user.Gender = ConsoleInput.GetString($" Mr || Miss || Binary\n Your gender: ");
+        ShowLandscapes();
+        user.LandscapeId = ConsoleInput.GetInt("Ditt län: ");
+        do
         {
-            user.PersonalNumber = ConsoleInput.GetString($"Person nummer: ");
+            user.PersonalNumber = ConsoleInput.GetString($"Personal-number: ");
             if ((_userService.CheckUserPersonalNumberExists(user.PersonalNumber)))
             {
                 Console.WriteLine("personal number alredy exists");
@@ -47,14 +51,40 @@ public class UserOperator
                 exists = false;
             }
         } while (exists);
+
         user.PassWord = ConsoleInput.GetString($"Password: ");
-        // user.Gender = ConsoleInput.GetString($"Man kvinna hen ");
         _userService.CreateUser(user);
         return user;
     }
 
-    public void LoginUser()
+    public int LoginUser()
     {
+        User user = new();
+        user.Email = ConsoleInput.GetString($"Enter your email: ");
+        user.PassWord = ConsoleInput.GetString($"Enter your password: ");
+        user = _loginService.UserLogIn(user);
+        user.Id = _loginService.UserLoginIsValid(user);
+        if(user.Id > 0)
+        {
+            Console.WriteLine("Inloggad med användare " + user.Id);
+        }
+        return user.Id;
+    }
+    public void ShowLandscapes()
+    {
+        int index = 0;
+        User.Landscapes allLandScapes = User.Landscapes.Undefined;
+        foreach (string name in Enum.GetNames(typeof(User.Landscapes)))
+        {
+            Console.WriteLine($"[{index}] {name}");
+            index++;
+        }
+
+    }
+
+    public void UpdateUserDescription(User user)
+    {
+        user.AboutMe = ConsoleInput.GetString("About me: ");
 
     }
 }

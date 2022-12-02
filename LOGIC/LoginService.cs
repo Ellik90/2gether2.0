@@ -13,11 +13,19 @@ public class LoginService : ILoginService
 
     public User UserLogIn(User user)
     {
-        throw new NotImplementedException();
+        if (_userHandeler.UserEmailExists(user.Email) == true)
+        {
+            Console.WriteLine("Valid email");
+        }
+        else
+        {
+            Console.WriteLine("Unvalid email");
+        }
+        return user;
     }
 
     public int UserLoginIsValid(User user)
     {
-        throw new NotImplementedException();
+        return _userHandeler.UserLogInExists(user);
     }
 }

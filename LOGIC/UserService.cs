@@ -14,7 +14,7 @@ public class UserService : IUserService
     public bool CreateUser(User user)
     {
         int rows = 0;
-        _userHandeler.CreateUser(user);
+        rows = _userHandeler.CreateUser(user);
         if (rows > 0)
         {
             return true;
@@ -39,6 +39,16 @@ public class UserService : IUserService
         bool rows = false;
 
         if(_userHandeler.UserPersonalNumberExists(personalNumber) == true)
+        {
+            rows = true;
+        }
+        return rows;
+    }
+
+    public bool UpdateUserDescription(string aboutMe)
+    {
+        bool rows = false;
+        if(_userHandeler.UpdateUserDescription(aboutMe) < 1)
         {
             rows = true;
         }

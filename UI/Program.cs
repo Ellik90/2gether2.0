@@ -6,8 +6,9 @@ internal class Program
     private static void Main(string[] args)
 
     {
+        LoginService loginService = new(new UserDB());
         UserService userService = new(new UserDB());
-        UserOperator userOperator = new(userService);
+        UserOperator userOperator = new(userService, loginService);
         User user = new();
         int answer = 0;
 
@@ -17,10 +18,10 @@ internal class Program
         switch (answer)
         {
             case 1:
-
+                int id = userOperator.LoginUser();
                 break;
             case 2:
-           user = userOperator.CreateUser(user);
+                user = userOperator.CreateUser();
                 break;
             case 3:
                 break;

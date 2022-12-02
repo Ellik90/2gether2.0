@@ -1,18 +1,19 @@
-namespace DATABASE;
 using Dapper;
 using MySqlConnector;
 using BASE;
 using System.Collections.Generic;
+namespace DATABASE;
 
-public class UserDB: IUserHandeler
+public class UserDB : IUserHandeler
 {
     public int CreateUser(User user)
     {
         int rows = 0;
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=2gether;Uid=root;Pwd=;"))
         {
-            string query = "INSERT INTO user_account(first_name, last_name, gender, age, personal_number, email, pass_word)VALUES(@Name,@LastName,@Gender,@Age,@PersonalNumber,@Email,@PassWord);";
-            rows = connection.ExecuteScalar<int>(query, param: user);
+            string query = "INSERT INTO user_account(first_name, last_name, gender, age, personal_number, email, pass_word,land_scape_id)" +
+            "VALUES(@Name,@LastName,@Gender,@Age,@PersonalNumber,@Email,@PassWord,@landScapeId);";
+            rows = connection.ExecuteScalar<int>(query, param : user);
         }
         return rows;
     }
@@ -26,11 +27,6 @@ public class UserDB: IUserHandeler
             rows = connection.ExecuteScalar<int>(query, param: user);
         }
         return rows;
-    }
-
-    public List<User> GetUser()
-    {
-        throw new NotImplementedException();
     }
 
     public int UpdateUserEmail(User user, string userEmail)
@@ -72,7 +68,7 @@ public class UserDB: IUserHandeler
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=2gether;Uid=root;Pwd=;"))
         {
             string query = "SELECT * FROM user_account WHERE personal_number = @PersonalNumber";
-            rows = connection.ExecuteScalar<bool>(query, new { @personalNumber = personalNumber});
+            rows = connection.ExecuteScalar<bool>(query, new { @personalNumber = personalNumber });
         }
         return rows;
     }
@@ -82,24 +78,66 @@ public class UserDB: IUserHandeler
         int id = 0;
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=2gether;Uid=root;Pwd=;"))
         {
-            string? query = "SELECT * FROM user_account WHERE email = @email AND pass_word = @password; SELECT LAST_INSERT_ID() ";
+            string? query = "SELECT id FROM user_account WHERE email = @email AND pass_word = @password;";
             id = connection.ExecuteScalar<int>(query, param: user);
             return id;
         }
+    }
+
+    public List<User> GetAllUsers()
+    {
+        List<User> users = new();
+        using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=2gether;Uid=root;Pwd=;"))
+        {
+            string? query = "SELECT id AS 'id', personal_number AS 'personalNumber',first_name AS 'name', email AS 'email', pass_word AS 'password', landscape.name AS 'landscape' " +
+                       "FROM user_account INNER JOIN landscape ON user_account.land_scape_id = landscape.id;";
+            users = connection.Query<User>(query).ToList();
+            return users;
+        }
+    }
+    public int UpdateUserDescription(string aboutMe)
+    {
+        int id = 0;
+        using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=2gether;Uid=root;Pwd=;"))
+        {
+            string? query = "INSERT INTO user_account (about_me)VALUES(@aboutMe)";
+            id = connection.ExecuteScalar<int>(query, new { @aboutMe = aboutMe });
+            return id;
+        }
+    }
+
+    public int GetAllUsersLandscapes(User user)
+    {
+        int id = 0;
+        using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=2gether;Uid=root;Pwd=;"))
+        {
+            string query = " SELECT id AS 'id', personal_number AS 'personalNumber',first_name AS 'name', email AS 'email', pass_word AS 'password', landscape.name AS 'landscape'" +
+            "FROM user_account INNER JOIN landscape ON user_account.land_scape_id = landscape.id;";
+            id = connection.ExecuteScalar<int>(query, param : user);
+            return id;
+        }
+
+    }
+
+
+
+    public List<User> GetUser()
+    {
+        throw new NotImplementedException();
     }
 }
 
 
 
-    // public List<User> GetUsers(User user)
-    // {
-    //     List<User> users = new();
+// public List<User> GetUsers(User user)
+// {
+//     List<User> users = new();
 
-    //     using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
-    //     {
-    //         string query = "SELECT id AS 'id', personal_number AS 'personalNumber',first_name AS 'name', email AS 'email', pass_word AS 'password' FROM admins;";
-    //         users = connection.Query<user>(query).ToList();
-    //         return users;
-    //     }
-    // }
+//     using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=2gether;Uid=root;Pwd=;"))
+//     {
+//         string query = "SELECT id AS 'id', personal_number AS 'personalNumber',first_name AS 'name', email AS 'email', pass_word AS 'password' FROM user_account;";
+//         users = connection.Query<user>(query).ToList();
+//         return users;
+//     }
+// }
 
