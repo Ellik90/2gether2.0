@@ -64,7 +64,7 @@ public class UserOperator
         user.PassWord = ConsoleInput.GetString($"Enter your password: ");
         user = _loginService.UserLogIn(user);
         user.Id = _loginService.UserLoginIsValid(user);
-        if(user.Id  < 1)
+        if (user.Id < 1)
         {
             Console.WriteLine("Fel");
         }
@@ -84,7 +84,9 @@ public class UserOperator
 
     public void UpdateUserDescription(User user)
     {
-        user.AboutMe = ConsoleInput.GetString("About me: ");
+         
+        string description = ConsoleInput.GetString("About me: ");
+        _userService.UpdateUserDescription(user, description);
 
     }
     public User GetUser(int id)
@@ -92,6 +94,8 @@ public class UserOperator
         User user = _userService.GetUser(id);
         return user;
     }
+
+
 }
 
 //     do
