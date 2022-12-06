@@ -1,9 +1,11 @@
-using LOGIC;
+
 using BASE;
 using DATABASE;
+namespace LOGIC;
 
 public class UserService : IUserService
 {
+    
     IUserHandeler _userHandeler;
     public UserService(IUserHandeler userHandeler)
     {
@@ -49,11 +51,11 @@ public class UserService : IUserService
         }
         return rows;
     }
-    public bool Update(User user)
+    public bool UpdateUserDescription(User user, string description)
     {
 
         bool rows = false;
-        if(_userHandeler.Update(user) < 1)
+        if(_userHandeler.UpdateUserDescription(user, description) < 1)
         {
             rows = true;
         }

@@ -95,13 +95,13 @@ public class UserDB : IUserHandeler
             return users;
         }
     }
-    public int Update(User user)
+    public int UpdateUserDescription(User user, string description)
     {
         int id = 0;
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=2gether;Uid=root;Pwd=;"))
         {
-            string? query = "UPDATE user_account SET about_me = @AboutMe, pass_word = @PassWord, email = @Email;";
-            id = connection.ExecuteScalar<int>(query, param: user);
+            string? query = "UPDATE user_account SET about_me = @AboutMe WHERE id = @Id ";
+            id = connection.ExecuteScalar<int>(query, new {@AboutMe = description, @id = user.Id});
             return id;
         }
     }
@@ -117,6 +117,7 @@ public class UserDB : IUserHandeler
         }
 
     }
+    
 
 
     public User GetUser(int id)

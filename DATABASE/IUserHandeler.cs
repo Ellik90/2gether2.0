@@ -7,6 +7,6 @@ public interface IUserHandeler
     public bool UserEmailExists(string email);
     public bool UserPersonalNumberExists(string personalNumber);
     public User GetUser(int id);
-    public int Update(User user);
+    public int UpdateUserDescription(User user, string description);
     public int UserLogInExists(User user);
 }

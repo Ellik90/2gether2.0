@@ -5,10 +5,11 @@ internal class Program
 {
     private static void Main(string[] args)
 
-    {
+    {   MatchOperator matchOperator = new();
+        MatchService matchService = new();
         LoginService loginService = new(new UserDB());
         UserService userService = new(new UserDB());
-        UserOperator userOperator = new(userService, loginService);
+        UserOperator userOperator = new(userService, loginService,matchService);
         User user = new();
         int answer = 0;
 
@@ -24,15 +25,20 @@ internal class Program
                 user = userOperator.GetUser(id);
                 Console.WriteLine(user.Name);
 
-                int answer1 = ConsoleInput.GetInt($"Welcome {user.Name}\n  [1] Update information [2] Your description");
+                int answer1 = ConsoleInput.GetInt($"Welcome {user.Name}\n  [1] Update information [2] Your description [3] Make a match\n [4] My matches");
                 if (answer1 == 2)
                 {
                    userOperator.UpdateUserDescription(user);
+                }
+                else if(answer == 3)
+                {
+                    matchOperator.MakeAMatch1(user);
                 }
                 break;
             case 2:
                 user = new();
                 user = userOperator.CreateUser();
+                ConsoleInput.GetInt($"Welcome {user.Name}\n  [1] Update information [2] Your description");
                 break;
             case 3:
                 break;

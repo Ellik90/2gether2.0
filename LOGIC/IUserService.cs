@@ -5,6 +5,6 @@ public interface IUserService
     public bool CreateUser(User user);
     public bool CheckUserEmailExists(string email);
     public bool CheckUserPersonalNumberExists(string personalNumber);
-    public bool Update(User user);
+    public bool UpdateUserDescription(User user, string description);
     public User GetUser(int id);
 }

@@ -5,11 +5,13 @@ public class UserOperator
 {
     IUserService _userService;
     ILoginService _loginService;
+    IMatchService _matchService;
 
-    public UserOperator(IUserService userService, ILoginService loginService)
+    public UserOperator(IUserService userService, ILoginService loginService, IMatchService matchService)
     {
         _userService = userService;
         _loginService = loginService;
+        _matchService = matchService;
     }
     public UserOperator() { }
 
