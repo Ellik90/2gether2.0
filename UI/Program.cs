@@ -34,7 +34,7 @@ internal class Program
                 }
                 else if (answer1 == 3)
                 {
-                    matchOperator.MakeAMatch1(user);
+                    matchOperator.ChooseCriterias(user);
                 }
                 else if(answer1 == 4)
                 {

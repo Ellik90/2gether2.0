@@ -11,7 +11,7 @@ public class UserOperator
     {
         _userService = userService;
         _loginService = loginService;
-        _matchService = matchService;
+        _matchService = matchService; 
     }
     public UserOperator() { }
 
@@ -84,19 +84,6 @@ public class UserOperator
 
     }
 
-    public void AgeSpan()
-    {
-        int index = 0;
-        User.Landscapes allLandScapes = User.Landscapes.Undefined;
-        foreach (string age in Enum.GetNames(typeof(User.Landscapes)))
-        {
-            Console.WriteLine($"[{index}] {age}");
-            index++;
-        }
-
-    }
-
-
     public void UpdateUserDescription(User user)
     {
 
@@ -107,6 +94,7 @@ public class UserOperator
     public User GetUser(int id)
     {
         User user = _userService.GetUser(id);
+        _matchService.SetTheMatches(user); //Har den här tillsvidare
         if (user == null)
         {
             Console.WriteLine("Cant find user");

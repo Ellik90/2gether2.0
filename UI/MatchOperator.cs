@@ -1,6 +1,7 @@
 using LOGIC;
 using DATABASE;
 using BASE;
+
 public class MatchOperator
 {
     IUserService _userService;
@@ -15,9 +16,50 @@ public class MatchOperator
     }
     public MatchOperator() { }
 
-    public void MakeAMatch1(User user)
+    public void ChooseCriterias(User user)
     {
+        ShowAgeSpan();
         int age = ConsoleInput.GetInt("Vilket åldersspann är du intresserad av? ");
-        // ShowAgeSpan();
+        UserOperator op = new();
+        op.ShowLandscapes();
+        int landScape = ConsoleInput.GetInt("Choose landscapes: ");
+        ShowInterests();
+        int interests = ConsoleInput.GetInt("Choose interests: ");
+        
     }
+    public void ShowAgeSpan()
+    {
+        Dictionary<int, string> Ages = new Dictionary<int, string>();
+        Ages.Add(1, "18-25");
+        Ages.Add(2, "26-33");
+        Ages.Add(3, "34-41");
+        Ages.Add(4, "42-49");
+        Ages.Add(5, "50-57");
+        Ages.Add(6, "58-65");
+        Ages.Add(7, "66-73");
+        Ages.Add(8, "74-81");
+        Ages.Add(9, "82-90");
+         foreach(KeyValuePair<int, string> age in Ages)
+          {
+              Console.WriteLine($"[{age.Key}] {age.Value}");
+          }
+    }
+    public void ShowInterests()
+    {
+         int index = 0;
+        
+        foreach (string name in Enum.GetNames(typeof(Interests)))
+        {
+            Console.WriteLine($"[{index}] {name}");
+            index++;
+        }
+    }
+   public enum Interests
+   {
+    Hemmamysarn = 1,
+    Resenären = 2,
+    Friluftslevaren = 3,
+    Festprissen = 4
+   }
+
 }

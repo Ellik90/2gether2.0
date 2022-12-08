@@ -16,6 +16,8 @@ public class MatchService : IMatchService
         try
         {
             List<User> users = _matchHandeler.GetUsersByLandscapeAndAge(user);
+            //när matchningarna är satta i matches
+            //då kommer en metod select matchninarna i matches istället för denna för att se alla matchninar
             return users;
         }
         catch (Exception e)
@@ -36,5 +38,15 @@ public class MatchService : IMatchService
         {
             return false;
         }
+    }
+
+    public void SetTheMatches(User user)
+    {
+        List<User> matches = _matchHandeler.GetUsersByLandscapeAndAge(user);
+        foreach (User item in matches)
+        {
+            _matchHandeler.CreateMatch(user, item.Id);
+        }
+
     }
 }
