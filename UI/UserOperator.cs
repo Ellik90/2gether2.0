@@ -84,6 +84,19 @@ public class UserOperator
 
     }
 
+     public void AgeSpan()
+    {
+        int index = 0;
+        User.Landscapes allLandScapes = User.Landscapes.Undefined;
+        foreach (string age in Enum.GetNames(typeof(User.Landscapes)))
+        {
+            Console.WriteLine($"[{index}] {age}");
+            index++;
+        }
+
+    }
+    
+
     public void UpdateUserDescription(User user)
     {
          

@@ -18,6 +18,6 @@ public class MatchOperator
     public void MakeAMatch1(User user)
     {
         int age = ConsoleInput.GetInt("Vilket åldersspann är du intresserad av? ");
-        ShowAgeSpan();
+        // ShowAgeSpan();
     }
 }
