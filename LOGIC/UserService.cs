@@ -13,6 +13,8 @@ public class UserService : IUserService
     }
     public UserService() { }
 
+   
+
     public bool CreateUser(User user)
     {
         int rows = 0;
@@ -29,7 +31,15 @@ public class UserService : IUserService
     public User GetUser(int id)
     {
         User user = _userHandeler.GetUser(id);
-        return user;
+        if (user != null)
+        {
+            return user;
+        }
+        else
+        {
+            return null;
+        }
+        
     }
     public bool CheckUserEmailExists(string email)
     {

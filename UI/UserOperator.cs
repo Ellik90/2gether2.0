@@ -84,7 +84,7 @@ public class UserOperator
 
     }
 
-     public void AgeSpan()
+    public void AgeSpan()
     {
         int index = 0;
         User.Landscapes allLandScapes = User.Landscapes.Undefined;
@@ -95,11 +95,11 @@ public class UserOperator
         }
 
     }
-    
+
 
     public void UpdateUserDescription(User user)
     {
-         
+
         string description = ConsoleInput.GetString("About me: ");
         _userService.UpdateUserDescription(user, description);
 
@@ -107,8 +107,34 @@ public class UserOperator
     public User GetUser(int id)
     {
         User user = _userService.GetUser(id);
-        return user;
+        if (user == null)
+        {
+            Console.WriteLine("Cant find user");
+            return null;
+        }
+        else
+        {
+            return user;
+        }
+
     }
+
+    public void ShowUsers(User user)
+    {
+        List<User> list = new();
+        list = _matchService.GetMatches(user);
+        if (list == null) Console.WriteLine("No matches");
+        else
+        {
+            foreach (User item in list)
+            {
+                Console.WriteLine(item.ToString());
+            }
+        }
+
+    }
+
+
 
 
 }

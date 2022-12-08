@@ -57,4 +57,10 @@ public class User
 
 
     }
+
+    public override string ToString()
+    {
+        return $"Id: {Id} Namn: {Name} Efternamn: {LastName}";
+    }
+
 }

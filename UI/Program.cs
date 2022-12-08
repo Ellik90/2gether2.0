@@ -5,11 +5,12 @@ internal class Program
 {
     private static void Main(string[] args)
 
-    {   MatchOperator matchOperator = new();
-        MatchService matchService = new();
+    {
+        MatchOperator matchOperator = new();
+        MatchService matchService = new(new MatchDB());
         LoginService loginService = new(new UserDB());
         UserService userService = new(new UserDB());
-        UserOperator userOperator = new(userService, loginService,matchService);
+        UserOperator userOperator = new(userService, loginService, matchService);
         User user = new();
         int answer = 0;
 
@@ -23,16 +24,21 @@ internal class Program
                 // hämta ut hela usern på detta id
                 user = new();
                 user = userOperator.GetUser(id);
+                if(user == null)break;
                 Console.WriteLine(user.Name);
 
                 int answer1 = ConsoleInput.GetInt($"Welcome {user.Name}\n  [1] Update information [2] Your description [3] Make a match\n [4] My matches");
                 if (answer1 == 2)
                 {
-                   userOperator.UpdateUserDescription(user);
+                    userOperator.UpdateUserDescription(user);
                 }
-                else if(answer == 3)
+                else if (answer1 == 3)
                 {
                     matchOperator.MakeAMatch1(user);
+                }
+                else if(answer1 == 4)
+                {
+                      userOperator.ShowUsers(user);
                 }
                 break;
             case 2:
@@ -42,6 +48,7 @@ internal class Program
                 break;
             case 3:
                 break;
+          
         }
 
     }
