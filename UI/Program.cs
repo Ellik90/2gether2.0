@@ -24,8 +24,10 @@ internal class Program
                 // hämta ut hela usern på detta id
                 user = new();
                 user = userOperator.GetUser(id);
-                if(user == null)break;
+                if (user == null) break;
                 Console.WriteLine(user.Name);
+
+
 
                 int answer1 = ConsoleInput.GetInt($"Welcome {user.Name}\n  [1] Update information [2] Your description [3] Make a match\n [4] My matches");
                 if (answer1 == 2)
@@ -36,19 +38,19 @@ internal class Program
                 {
                     matchOperator.ChooseCriterias(user);
                 }
-                else if(answer1 == 4)
+                else if (answer1 == 4)
                 {
-                      userOperator.ShowUsers(user);
+                    userOperator.ShowUsers(user);
                 }
                 break;
             case 2:
                 user = new();
                 user = userOperator.CreateUser();
-                ConsoleInput.GetInt($"Welcome {user.Name}\n  [1] Update information [2] Your description");
+                ConsoleInput.GetInt($"Welcome {user.Name}\n  [1] Update information [2] Your description [3] Make a match\n [4] My matches");
                 break;
             case 3:
                 break;
-          
+
         }
 
     }

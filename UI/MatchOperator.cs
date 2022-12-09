@@ -18,9 +18,11 @@ public class MatchOperator
 
     public void ChooseCriterias(User user)
     {
+        List<AgeSpan> ageSpans = new();
         ShowAgeSpan();
         int age = ConsoleInput.GetInt("Vilket åldersspann är du intresserad av? ");
         UserOperator op = new();
+        
         op.ShowLandscapes();
         int landScape = ConsoleInput.GetInt("Choose landscapes: ");
         ShowInterests();
