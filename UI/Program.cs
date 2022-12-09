@@ -6,10 +6,11 @@ internal class Program
     private static void Main(string[] args)
 
     {
-        MatchOperator matchOperator = new();
+        
         MatchService matchService = new(new MatchDB());
         LoginService loginService = new(new UserDB());
         UserService userService = new(new UserDB());
+        MatchOperator matchOperator = new(userService, loginService,matchService);
         UserOperator userOperator = new(userService, loginService, matchService);
         User user = new();
         int answer = 0;

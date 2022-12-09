@@ -71,7 +71,7 @@ public class UserDB : IUserHandeler
         int id = 0;
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=2gether;Uid=root;Pwd=;"))
         {
-            string? query = "SELECT id FROM user_account WHERE email = @email AND pass_word = @password;";
+            string? query = "SELECT id AS 'Id' FROM user_account WHERE email = @email AND pass_word = @password;";
             id = connection.ExecuteScalar<int>(query, new {@email = user.Email, @password = user.PassWord});
             return id;
         }

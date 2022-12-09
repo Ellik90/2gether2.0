@@ -49,4 +49,30 @@ public class MatchService : IMatchService
         }
 
     }
+    public void InsertInterestsChoise(User user, List<int> interests)
+    {
+        foreach (int item in interests)
+        {
+            _matchHandeler.InsertInterestsChoise( user,item);
+        }        
+
+    }
+
+     public void InsertAgesChoise(User user, List<int> ages)
+    {
+        foreach (int item in ages)
+        {
+            _matchHandeler.InsertAgesChoise( user,item);
+        }        
+
+    }
+
+       public void InsertLandscapesChoise(User user, List<int> landsScapes)
+    {
+        foreach (int item in landsScapes)
+        {
+            _matchHandeler.InsertLandscapesChoise( user,item);
+        }        
+
+    }
 }

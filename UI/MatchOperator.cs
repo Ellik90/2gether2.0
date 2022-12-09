@@ -18,16 +18,25 @@ public class MatchOperator
 
     public void ChooseCriterias(User user)
     {
-        List<AgeSpan> ageSpans = new();
+        List<int> myInterests = new List<int>();
+        List<int> agespans = new List<int>();
+        List<int> landscapes = new List<int>();
+
         ShowAgeSpan();
         int age = ConsoleInput.GetInt("Vilket åldersspann är du intresserad av? ");
         UserOperator op = new();
-        
+        agespans.Add(age);
+        _matchService.InsertAgesChoise(user,agespans);
         op.ShowLandscapes();
         int landScape = ConsoleInput.GetInt("Choose landscapes: ");
+        landscapes.Add(landScape);
+        _matchService.InsertLandscapesChoise(user, landscapes);
         ShowInterests();
         int interests = ConsoleInput.GetInt("Choose interests: ");
-        
+        myInterests.Add(interests);
+        _matchService.InsertInterestsChoise(user, myInterests);
+
+
     }
     public void ShowAgeSpan()
     {
@@ -41,27 +50,27 @@ public class MatchOperator
         Ages.Add(7, "66-73");
         Ages.Add(8, "74-81");
         Ages.Add(9, "82-90");
-         foreach(KeyValuePair<int, string> age in Ages)
-          {
-              Console.WriteLine($"[{age.Key}] {age.Value}");
-          }
+        foreach (KeyValuePair<int, string> age in Ages)
+        {
+            Console.WriteLine($"[{age.Key}] {age.Value}");
+        }
     }
     public void ShowInterests()
     {
-         int index = 0;
-        
+        int index = 1;
+
         foreach (string name in Enum.GetNames(typeof(Interests)))
         {
             Console.WriteLine($"[{index}] {name}");
             index++;
         }
     }
-   public enum Interests
-   {
-    Hemmamysarn = 1,
-    Resenären = 2,
-    Friluftslevaren = 3,
-    Festprissen = 4
-   }
+    public enum Interests
+    {
+        Hemmamysarn = 1,
+        Resenären = 2,
+        Friluftslevaren = 3,
+        Festprissen = 4
+    }
 
 }

@@ -5,6 +5,40 @@ using System.Collections.Generic;
 namespace DATABASE;
 public class MatchDB : IMatchHandeler
 {
+    public void InsertInterestsChoise(User user, int interests)
+    {
+        
+        using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=2gether;Uid=root;Pwd=;"))
+        {
+            string query = "INSERT INTO user_interests(interests_id, user_account_id) VALUES (@Interest,@userId);";
+             connection.ExecuteScalar<int>(query, new {@Interest = interests,@userId = user.Id });
+        }
+    
+    }
+
+     public void InsertAgesChoise(User user, int ages)
+    {
+        
+        using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=2gether;Uid=root;Pwd=;"))
+        {
+            string query = "INSERT INTO user_age(age_id, user_account_id) VALUES (@Ages,@userId);";
+             connection.ExecuteScalar<int>(query, new {@Ages = ages,@userId = user.Id });
+        }
+    
+    }
+
+      public void InsertLandscapesChoise(User user, int landscapes)
+    {
+        
+        using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=2gether;Uid=root;Pwd=;"))
+        {
+            string query = "INSERT INTO user_landscape(landscape_id, user_account_id) VALUES (@Landscapes,@userId);";
+             connection.ExecuteScalar<int>(query, new {@Landscapes = landscapes,@userId = user.Id });
+        }
+    
+    }
+
+
     public int LandscapeMatch(User user)
     {
         int rows = 0;
