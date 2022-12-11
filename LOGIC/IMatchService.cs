@@ -8,5 +8,7 @@ public interface IMatchService
     public void InsertInterestsChoise(User user, List<int> interests);
     public void InsertAgesChoise(User user, List<int> ages);
     public void InsertLandscapesChoise(User user, List<int> landsScapes);
+    // public void SayYesOrNOToMatch(User user);
+    public void SetTheYesAndNO(User user, string word);
 
 }

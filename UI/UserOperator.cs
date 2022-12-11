@@ -11,7 +11,7 @@ public class UserOperator
     {
         _userService = userService;
         _loginService = loginService;
-        _matchService = matchService; 
+        _matchService = matchService;
     }
     public UserOperator() { }
 
@@ -91,10 +91,26 @@ public class UserOperator
         _userService.UpdateUserDescription(user, description);
 
     }
+
+    public void SayYesOrNOToMatch(User user)
+    {
+        int num = ConsoleInput.GetInt("Is this your match? [1]yes  [2]No: "); //kolla över denna knasiga
+        if (num == 1)
+        {
+            string word = "yes";
+            _matchService.SetTheYesAndNO(user, word);
+        }
+        else
+        {
+            return;
+        }
+
+
+    }
     public User GetUser(int id)
     {
         User user = _userService.GetUser(id);
-        _matchService.SetTheMatches(user); //Har den här tillsvidare
+        _matchService.SetTheMatches(user); //Har den här tillsvidare1
         if (user == null)
         {
             Console.WriteLine("Cant find user");

@@ -1,4 +1,6 @@
-namespace BASE;
+using BASE;
+using DATABASE;
+namespace LOGIC;
 public interface IUserService
 {
     

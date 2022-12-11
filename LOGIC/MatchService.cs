@@ -49,6 +49,16 @@ public class MatchService : IMatchService
         }
 
     }
+
+      public void SetTheYesAndNO(User user, string word)
+    {
+        List<User> matches = _matchHandeler.GetUsersByLandscapeAndAge(user);
+        foreach (User item in matches)
+        {
+            _matchHandeler.SayYesOrNoToMatch(user, item.Id);
+        }
+
+    }
     public void InsertInterestsChoise(User user, List<int> interests)
     {
         foreach (int item in interests)

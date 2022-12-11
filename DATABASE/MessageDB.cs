@@ -13,4 +13,19 @@ public class MessageDB
             id = connection.ExecuteScalar<int>(query, param: message);
         }
     }
+
+    public List<User> GetMyMessages(User user)
+    {
+        List<User> messages = new();
+
+        using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=2gether;Uid=root;Pwd=;"))
+        {
+            string query = "SELECT m.id,m.content,u1.first_name AS 'sender',u2.first_name AS 'receiver' " +
+            "FROM message m INNER JOIN user_account u1 ON u1.id = m.sender_id INNER JOIN user_account u2 " +
+            " ON u2.id = m.receiver_id";
+            messages = connection.Query<User>(query, param: user).ToList();
+        }
+        return messages;
+    }
+
 }
