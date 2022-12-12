@@ -9,7 +9,7 @@ public class MessageOperator
     IMatchService _matchService;
     IMessageService _messageService;
 
-     public MessageOperator(IUserService userService, ILoginService loginService, IMatchService matchService, IMessageService messageService)
+    public MessageOperator(IUserService userService, ILoginService loginService, IMatchService matchService, IMessageService messageService)
     {
         _userService = userService;
         _loginService = loginService;
@@ -17,38 +17,37 @@ public class MessageOperator
         _messageService = messageService;
     }
 
-        public void SendMessage(int idToUser, User user, string reciever)
+    public void ShowMessageConversation( User user)
     {
-        
-        string content = ConsoleInput.GetString("Content: ");
-        Message newMessage = new( content, user.Id, idToUser);
-        if (reciever == "user")
+        try
         {
-            try
+            List<Message> messages = _messageService.ShowOneMessageConversation(user);
+            Console.WriteLine();
+            foreach (Message item in messages)
             {
-                _messageService.MakeMessage(newMessage);
-                Console.WriteLine("Message sent!");
-            }
-            catch(Exception)
-            {
-                Console.WriteLine("Something went wrong.");
+                Console.WriteLine(item.MessageTostring());
             }
         }
-
-     public Message GetMessages(int id)
-    {
-        Message message = _messageService.GetMessages(id);
-         //Har den här tillsvidare1
-        if (message == null)
+        catch (ArgumentNullException)
         {
-            Console.WriteLine("You dont have any messages");
-            return null;
+            Console.WriteLine("No conversation found.");
         }
-        else
-        {
-            return message;
-        }
-
     }
-    
+
+    // public Message GetMessages(int id)
+    // {
+    //     Message message = _messageService.GetMessages(id);
+    //     //Har den här tillsvidare1
+    //     if (message == null)
+    //     {
+    //         Console.WriteLine("You dont have any messages");
+    //         return null;
+    //     }
+    //     else
+    //     {
+    //         return message;
+    //     }
+
+    // }
+
 }

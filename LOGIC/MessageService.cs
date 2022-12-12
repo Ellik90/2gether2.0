@@ -14,17 +14,26 @@ public class MessageService : IMessageService
     public MessageService() { }
 
 
-     public bool MakeMessage(Message message)
+    //  public bool MakeMessage(Message message)
+    // {
+    //     int rows = _messageHandeler.CreateMessage(message);
+    //     if(rows > 0)
+    //     {
+    //         return true;
+    //     }
+    //     else
+    //     {
+    //         return false;
+    //     }
+    // }
+
+    
+
+     public List<Message> ShowOneMessageConversation(User user)
     {
-        int rows = _messageHandeler.CreateMessage(message);
-        if(rows > 0)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        
+        List<Message> messages = _messageHandeler.GetMyMessages( user);
+        return messages;
     }
 
     

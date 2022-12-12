@@ -29,7 +29,7 @@ public class UserDB : IUserHandeler
     public int UpdateUserEmail(User user, string userEmail)
     {
         int rows = 0;
-        using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
+        using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=2gether;Uid=root;Pwd=;"))
         {
             string? query = "UPDATE user_account SET email = @UserEmail WHERE id = @id";
             rows = connection.ExecuteScalar<int>(query, param: new { @userEmail = userEmail, @id = user.Id });
@@ -76,6 +76,8 @@ public class UserDB : IUserHandeler
             return id;
         }
     }
+
+
     public List<User> GetAllUsers()
     {
         List<User> users = new();

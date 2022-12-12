@@ -7,11 +7,14 @@ internal class Program
 
     {
 
+        
         MatchService matchService = new(new MatchDB());
         LoginService loginService = new(new UserDB());
         UserService userService = new(new UserDB());
+        MessageService messageService = new(new MessageDB());
         MatchOperator matchOperator = new(userService, loginService, matchService);
         UserOperator userOperator = new(userService, loginService, matchService);
+        MessageOperator messageOperator = new(userService,loginService,matchService,messageService);
         User user = new();
         int answer = 0;
 
@@ -30,7 +33,7 @@ internal class Program
 
 
 
-                int answer1 = ConsoleInput.GetInt($"Welcome {user.Name}\n  [1] Update information [2] Your description [3] Make a match\n [4] My matches  [5] My YES-matches");
+                int answer1 = ConsoleInput.GetInt($"Welcome {user.Name}\n  [1] Update information [2] Your description [3] Make a match\n [4] My matches  [5] My YES-matches [6] My messages");
                 if (answer1 == 2)
                 {
                     userOperator.UpdateUserDescription(user);
@@ -47,6 +50,12 @@ internal class Program
                 {
                     userOperator.ShowUsers(user);
                     userOperator.SayYesOrNOToMatch(user); // kolla över denna knasiga
+                }
+                else if (answer1 == 6)
+                {
+                    // int messageId = 0;
+                    // int participantId = 0;
+                    messageOperator.ShowMessageConversation(user);
                 }
                 break;
             case 2:
