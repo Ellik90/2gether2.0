@@ -5,7 +5,7 @@ namespace LOGIC;
 
 public class UserService : IUserService
 {
-    
+
     IUserHandeler _userHandeler;
     public UserService(IUserHandeler userHandeler)
     {
@@ -13,7 +13,19 @@ public class UserService : IUserService
     }
     public UserService() { }
 
-   
+     public bool DeleteUser(User user)
+    {
+           int rows = 0;
+    rows = _userHandeler.DeleteUser(user);
+        if (rows > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
     public bool CreateUser(User user)
     {
@@ -28,48 +40,50 @@ public class UserService : IUserService
             return false;
         }
     }
-    public User GetUser(int id)
-    {
-        User user = _userHandeler.GetUser(id);
-        if (user != null)
-        {
-            return user;
-        }
-        else
-        {
-            return null;
-        }
-        
-    }
-    public bool CheckUserEmailExists(string email)
-    {
-        bool rows = false;
 
-        if (_userHandeler.UserEmailExists(email) == true)
-        {
-            rows = true;
-        }
-        return rows;
-    }
-    public bool CheckUserPersonalNumberExists(string personalNumber)
+   
+public User GetUser(int id)
+{
+    User user = _userHandeler.GetUser(id);
+    if (user != null)
     {
-        bool rows = false;
-
-        if(_userHandeler.UserPersonalNumberExists(personalNumber) == true)
-        {
-            rows = true;
-        }
-        return rows;
+        return user;
     }
-    public bool UpdateUserDescription(User user, string description)
+    else
     {
-
-        bool rows = false;
-        if(_userHandeler.UpdateUserDescription(user, description) < 1)
-        {
-            rows = true;
-        }
-        return rows;
+        return null;
     }
+
+}
+public bool CheckUserEmailExists(string email)
+{
+    bool rows = false;
+
+    if (_userHandeler.UserEmailExists(email) == true)
+    {
+        rows = true;
+    }
+    return rows;
+}
+public bool CheckUserPersonalNumberExists(string personalNumber)
+{
+    bool rows = false;
+
+    if (_userHandeler.UserPersonalNumberExists(personalNumber) == true)
+    {
+        rows = true;
+    }
+    return rows;
+}
+public bool UpdateUserDescription(User user, string description)
+{
+
+    bool rows = false;
+    if (_userHandeler.UpdateUserDescription(user, description) < 1)
+    {
+        rows = true;
+    }
+    return rows;
+}
     
 }

@@ -15,6 +15,20 @@ public class UserOperator
     }
     public UserOperator() { }
 
+    public void DeleteUser(User user)
+    {
+         try
+        {
+            _userService.DeleteUser(user);
+            Console.WriteLine("Account deleted!");
+            Environment.Exit(0);
+        }
+        catch (MySqlConnector.MySqlException)
+        {
+            Console.WriteLine("The site is under construction. Try again later.");
+        }
+    }
+
     public User CreateUser()
     {
         LandScape landScape = new();
