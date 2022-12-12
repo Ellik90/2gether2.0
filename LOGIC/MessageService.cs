@@ -13,26 +13,23 @@ public class MessageService : IMessageService
     }
     public MessageService() { }
 
-
-    //  public bool MakeMessage(Message message)
-    // {
-    //     int rows = _messageHandeler.CreateMessage(message);
-    //     if(rows > 0)
-    //     {
-    //         return true;
-    //     }
-    //     else
-    //     {
-    //         return false;
-    //     }
-    // }
+     public List<User> GetMySenders(int id)
+     {
+        List<User> users = _messageHandeler.GetMySenders(id);
+        return users;
+     }
+     public void MakeMessage(Message message)
+    {
+          _messageHandeler.CreateMessage(message);
+       
+    }
 
     
 
-     public List<Message> ShowOneMessageConversation(User user)
+     public List<Message> GetOneMessageConversation(User user, int id2)
     {
         
-        List<Message> messages = _messageHandeler.GetMyMessages( user);
+        List<Message> messages = _messageHandeler.GetMyMessages( user, id2);
         return messages;
     }
 

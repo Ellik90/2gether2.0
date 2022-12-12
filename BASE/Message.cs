@@ -2,9 +2,10 @@ namespace BASE;
 public class Message
 {
     int Id { get; set; }
-    string Content { get; set; }
-    int SenderId { get; set; }
-    int ReceiverId { get; set; }
+    string Sender { get; set; }
+    public string Content { get; set; }
+    public int SenderId { get; set; }
+    public int ReceiverId { get; set; }
     DateTime Created { get; set; }
 
      public Message( string content)
@@ -16,6 +17,6 @@ public class Message
 
     public string MessageTostring()
     {
-        return $"{Id}: {Content}";
+        return $"{Sender}: {Content}";
     }
 }

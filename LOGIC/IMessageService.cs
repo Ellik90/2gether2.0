@@ -3,8 +3,10 @@ using DATABASE;
 namespace LOGIC;
 public interface IMessageService
 {
-    //public Message GetMessages(int id);
+   
     //public List<Message> ShowOneMessageConversation(int messageId, int participantId, int myId);
-    public List<Message> ShowOneMessageConversation(User user);
+    public List<Message> GetOneMessageConversation(User user, int id2);
+    public void MakeMessage(Message message);
+    public List<User> GetMySenders(int id);
 
 }

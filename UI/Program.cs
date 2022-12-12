@@ -7,16 +7,17 @@ internal class Program
 
     {
 
-        
+
         MatchService matchService = new(new MatchDB());
         LoginService loginService = new(new UserDB());
         UserService userService = new(new UserDB());
         MessageService messageService = new(new MessageDB());
         MatchOperator matchOperator = new(userService, loginService, matchService);
         UserOperator userOperator = new(userService, loginService, matchService);
-        MessageOperator messageOperator = new(userService,loginService,matchService,messageService);
+        MessageOperator messageOperator = new(userService, loginService, matchService, messageService);
         User user = new();
         int answer = 0;
+        bool loggedIn = false;
 
         Console.WriteLine("2gether");
         answer = ConsoleInput.GetInt($"[1] Logga in [2] Skapa konto [3] Kontakta kundtjänst ");
@@ -29,35 +30,42 @@ internal class Program
                 user = new();
                 user = userOperator.GetUser(id);
                 if (user == null) break;
+                loggedIn = true;
                 Console.WriteLine(user.Name);
-
-
-
-                int answer1 = ConsoleInput.GetInt($"Welcome {user.Name}\n  [1] Update information [2] Your description [3] Make a match\n [4] My matches  [5] My YES-matches [6] My messages");
-                if (answer1 == 2)
+                while (loggedIn)
                 {
-                    userOperator.UpdateUserDescription(user);
+                int answer1 = ConsoleInput.GetInt($"Welcome {user.Name}\n  [1] Update information [2] Your description [3] Make a match\n [4] My matches  [5] My YES-matches [6] My messages [7] Write message");
+                switch (answer1)
+                {
+                    case 2:
+                        userOperator.UpdateUserDescription(user);
+                        break;
+                    case 3:
+                        matchOperator.ChooseCriterias(user);
+                        break;
+                    case 4:
+                        userOperator.ShowUsers(user);
+                        break;
+                    case 5:
+                        userOperator.ShowUsers(user);
+                        userOperator.SayYesOrNOToMatch(user);
+                        break;
+                    case 6:
+                        messageOperator.ShowSenders(user);
+                        int id2 = ConsoleInput.GetInt("Choose conversation: ");
+                        messageOperator.ShowMessageConversation(user, id2);
+                        messageOperator.SendMessage(id2, user);
+                        break;
+                    case 7:
+                        Message message = new();
+                        int senderId = 0;
+                        int receiverId = 0;
+                        messageOperator.SendMessage(receiverId, user);
+                        break;
                 }
-                else if (answer1 == 3)
-                {
-                    matchOperator.ChooseCriterias(user);
-                }
-                else if (answer1 == 4)
-                {
-                    userOperator.ShowUsers(user);
-                }
-                else if (answer1 == 5)
-                {
-                    userOperator.ShowUsers(user);
-                    userOperator.SayYesOrNOToMatch(user); // kolla över denna knasiga
-                }
-                else if (answer1 == 6)
-                {
-                    // int messageId = 0;
-                    // int participantId = 0;
-                    messageOperator.ShowMessageConversation(user);
                 }
                 break;
+                
             case 2:
                 user = new();
                 user = userOperator.CreateUser();
