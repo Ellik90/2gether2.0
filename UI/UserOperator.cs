@@ -37,7 +37,7 @@ public class UserOperator
 
         user.Name = ConsoleInput.GetString($"Namn:  ");
         user.LastName = ConsoleInput.GetString($"Efternamn: ");
-        user.Age = ConsoleInput.GetString($"Age: ");
+        user.Age = ConsoleInput.GetInt($"Age: ");
         user.Gender = ConsoleInput.GetString($" Mr || Miss || Binary\n Your gender: ");
         ShowLandscapes();
         user.LandscapeId = ConsoleInput.GetInt("Ditt län: ");
