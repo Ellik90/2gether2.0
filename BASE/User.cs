@@ -63,7 +63,7 @@ public class User
 
     public override string ToString()
     {
-        return $" {Name} {LastName} <3  {MatchName}  {MatchLastName}";
+        return $"[{Id}] {Name} {LastName} <3";
     }
 
 }

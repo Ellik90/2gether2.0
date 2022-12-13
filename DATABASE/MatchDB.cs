@@ -11,8 +11,7 @@ public class MatchDB : IMatchHandeler
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=2gether;Uid=root;Pwd=;"))
         {
             string? query = "select m.id from matches m " +
-            " WHERE m.one_user_account_id = @userId AND m.two_user_account_id = @otherUserId " + 
-            " OR m.one_user_account_id = @otherUserId AND m.one_user_account_id = @userId;";
+            " WHERE m.one_user_account_id = @userId AND m.two_user_account_id = @otherUserId;";
             id = connection.ExecuteScalar<int>(query, new {@userId = user.Id, @otherUserId = otherUserId});
             return id;
         }
@@ -23,10 +22,10 @@ public class MatchDB : IMatchHandeler
 
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=2gether;Uid=root;Pwd=;"))
         {
-            string query = "SELECT m.id, u1.first_name AS 'Name', u1.last_name AS 'LastName', u2.first_name AS 'MatchName', u2.last_name AS 'MatchLastName' " +
+            string query = "SELECT u2.id as 'Id', u2.first_name AS 'Name' " +
                             "FROM matches m INNER JOIN user_account u1 " +
                             "ON m.one_user_account_id = u1.id INNER JOIN user_account u2 " + 
-                            "ON m.two_user_account_id = u2.id WHERE u1.id = @Id OR u2.id = @Id;";
+                            "ON m.two_user_account_id = u2.id WHERE u1.id = @Id;";
           
             matches = connection.Query<User>(query, param: user).ToList();
         }
@@ -122,7 +121,9 @@ public class MatchDB : IMatchHandeler
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=2gether;Uid=root;Pwd=;"))
         {
             string query = "INSERT INTO matches (one_user_account_id,two_user_account_id)" +
-                            "VALUES (@userId,@otherUserId); ";
+                            "VALUES (@userId,@otherUserId); " +
+                            "INSERT INTO matches (one_user_account_id,two_user_account_id)" +
+                            "VALUES (@otherUserId,@userId); ";
 
             connection.Query<User>(query, new { @userId = user.Id, @otherUserId = id });
         }

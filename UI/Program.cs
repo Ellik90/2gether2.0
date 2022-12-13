@@ -39,7 +39,7 @@ internal class Program
 
                 while (loggedIn)
                 {
-                    int answer1 = ConsoleInput.GetInt($"Welcome {user.Name}\n  [1] Logga ut  [2] Your description [3] Make a match\n [4] My matches  [5] My YES-matches [6] My messages [7] Write message\n [8] Delete my account");
+                    int answer1 = ConsoleInput.GetInt($"Welcome {user.Name}\n  [1] Logga ut  [2] Your description [3] Make a match\n [4] My matches  [5] Delete matches [6] My messages [7] Write message\n [8] Delete my account");
                     switch (answer1)
                     {
                         case 1:
@@ -57,9 +57,11 @@ internal class Program
                             break;
                         case 5:
                             userOperator.ShowUsers(user);
-                            userOperator.SayYesOrNOToMatch(user);
+                           // userOperator.DeleteMyMatch();
+                           //delete match här
                             break;
                         case 6:
+                            userOperator.ShowUsers(user);
                             messageOperator.ShowSenders(user);
                             int id2 = ConsoleInput.GetInt("Choose conversation: ");
                             messageOperator.ShowMessageConversation(user, id2);
