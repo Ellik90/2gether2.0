@@ -50,6 +50,7 @@ internal class Program
                             break;
                         case 3:
                             matchOperator.ChooseCriterias(user);
+                            matchService.SetMatches(user); //sätt dit den.
                             break;
                         case 4:
                             userOperator.ShowUsers(user);

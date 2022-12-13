@@ -9,6 +9,8 @@ public interface IMatchHandeler
      public void InsertAgesChoise(User user, int ages);
      public void InsertLandscapesChoise(User user, int landscapes);
      public void SayYesOrNoToMatch(User user, int id);
+     public List<User> GetMatches(User user);
+     public int CheckIfMatchesExists(User user, int otherUserId);
     // public List<User> GetUsersByLandscapeAndAgeAndInterests(User user);
     
 }

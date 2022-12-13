@@ -124,7 +124,7 @@ public class UserOperator
     public User GetUser(int id)
     {
         User user = _userService.GetUser(id);
-        _matchService.SetTheMatches(user); //Har den här tillsvidare1
+        _matchService.GetMatches(user); //Har den här tillsvidare1
         if (user == null)
         {
             Console.WriteLine("Cant find user");
@@ -136,7 +136,6 @@ public class UserOperator
         }
 
     }
-
     public void ShowUsers(User user)
     {
         List<User> list = new();
@@ -149,7 +148,6 @@ public class UserOperator
                 Console.WriteLine(item.ToString());
             }
         }
-
     }
 
 

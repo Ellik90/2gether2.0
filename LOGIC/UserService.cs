@@ -13,10 +13,10 @@ public class UserService : IUserService
     }
     public UserService() { }
 
-     public bool DeleteUser(User user)
+    public bool DeleteUser(User user)
     {
-           int rows = 0;
-    rows = _userHandeler.DeleteUser(user);
+        int rows = 0;
+        rows = _userHandeler.DeleteUser(user);
         if (rows > 0)
         {
             return true;
@@ -41,49 +41,49 @@ public class UserService : IUserService
         }
     }
 
-   
-public User GetUser(int id)
-{
-    User user = _userHandeler.GetUser(id);
-    if (user != null)
+
+    public User GetUser(int id)
     {
-        return user;
+        User user = _userHandeler.GetUser(id);
+        if (user != null)
+        {
+            return user;
+        }
+        else
+        {
+            return null;
+        }
+
     }
-    else
+    public bool CheckUserEmailExists(string email)
     {
-        return null;
+        bool rows = false;
+
+        if (_userHandeler.UserEmailExists(email) == true)
+        {
+            rows = true;
+        }
+        return rows;
+    }
+    public bool CheckUserPersonalNumberExists(string personalNumber)
+    {
+        bool rows = false;
+
+        if (_userHandeler.UserPersonalNumberExists(personalNumber) == true)
+        {
+            rows = true;
+        }
+        return rows;
+    }
+    public bool UpdateUserDescription(User user, string description)
+    {
+
+        bool rows = false;
+        if (_userHandeler.UpdateUserDescription(user, description) < 1)
+        {
+            rows = true;
+        }
+        return rows;
     }
 
-}
-public bool CheckUserEmailExists(string email)
-{
-    bool rows = false;
-
-    if (_userHandeler.UserEmailExists(email) == true)
-    {
-        rows = true;
-    }
-    return rows;
-}
-public bool CheckUserPersonalNumberExists(string personalNumber)
-{
-    bool rows = false;
-
-    if (_userHandeler.UserPersonalNumberExists(personalNumber) == true)
-    {
-        rows = true;
-    }
-    return rows;
-}
-public bool UpdateUserDescription(User user, string description)
-{
-
-    bool rows = false;
-    if (_userHandeler.UpdateUserDescription(user, description) < 1)
-    {
-        rows = true;
-    }
-    return rows;
-}
-    
 }

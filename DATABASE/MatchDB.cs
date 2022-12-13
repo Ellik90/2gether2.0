@@ -5,6 +5,33 @@ using System.Collections.Generic;
 namespace DATABASE;
 public class MatchDB : IMatchHandeler
 {
+    public int CheckIfMatchesExists(User user, int otherUserId)
+    {
+         int id = 0;
+        using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=2gether;Uid=root;Pwd=;"))
+        {
+            string? query = "select m.id from matches m " +
+            " WHERE m.one_user_account_id = @userId AND m.two_user_account_id = @otherUserId " + 
+            " OR m.one_user_account_id = @otherUserId AND m.one_user_account_id = @userId;";
+            id = connection.ExecuteScalar<int>(query, new {@userId = user.Id, @otherUserId = otherUserId});
+            return id;
+        }
+    }
+     public List<User> GetMatches(User user)
+    {
+        List<User> matches = new();
+
+        using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=2gether;Uid=root;Pwd=;"))
+        {
+            string query = "SELECT m.id, u1.first_name AS 'Name', u1.last_name AS 'LastName', u2.first_name AS 'MatchName', u2.last_name AS 'MatchLastName' " +
+                            "FROM matches m INNER JOIN user_account u1 " +
+                            "ON m.one_user_account_id = u1.id INNER JOIN user_account u2 " + 
+                            "ON m.two_user_account_id = u2.id WHERE u1.id = @Id OR u2.id = @Id;";
+          
+            matches = connection.Query<User>(query, param: user).ToList();
+        }
+        return matches;
+    }
     public void InsertInterestsChoise(User user, int interests)
     {
         
@@ -74,21 +101,21 @@ public class MatchDB : IMatchHandeler
         return matchUsers;
     }
      
-    //   public List<User> GetUsersByLandscapeAndAgeAndInterests(User user) //BORDE JAG HA DENNA?
-    // {
-    //     List<User> matchUsers = new();
+      public List<User> GetUsersByLandscapeAndAgeAndInterests(User user) //BORDE JAG HA DENNA?
+    {
+        List<User> matchUsers = new();
 
-    //     using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=2gether;Uid=root;Pwd=;"))
-    //     {
-    //         string query = "SELECT u.id AS 'Id', u.first_name AS 'Name', u.last_name AS 'LastName' FROM user_account u INNER JOIN user_account u2 " +
-    //         "INNER JOIN user_landscape ul ON u.land_scape_id = ul.landscape_id INNER JOIN user_age ua " +
-    //         "ON ua.user_account_id = u2.id INNER JOIN age a ON a.id = ua.age_id INNER JOIN user_interests ui" +
-    //         "ON ui.user_account_id = u2.id INNER JOIN interests i ON i.id = ui.interests_id  " +
-    //         "WHERE u2.id = @Id AND u.age > a.lower_age AND u.age < a.upper_age AND u.id != @Id GROUP BY u.id;";
-    //         matchUsers = connection.Query<User>(query, param: user).ToList();
-    //     }
-    //     return matchUsers;
-    // }
+        using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=2gether;Uid=root;Pwd=;"))
+        {
+            string query = "SELECT u.id AS 'Id', u.first_name AS 'Name', u.last_name AS 'LastName' FROM user_account u INNER JOIN user_account u2 " +
+            "INNER JOIN user_landscape ul ON u.land_scape_id = ul.landscape_id INNER JOIN user_age ua " +
+            "ON ua.user_account_id = u2.id INNER JOIN age a ON a.id = ua.age_id INNER JOIN user_interests ui" +
+            "ON ui.user_account_id = u2.id INNER JOIN interests i ON i.id = ui.interests_id  " +
+            "WHERE u2.id = @Id AND u.age > a.lower_age AND u.age < a.upper_age AND u.id != @Id GROUP BY u.id;";
+            matchUsers = connection.Query<User>(query, param: user).ToList();
+        }
+        return matchUsers;
+    }
 
     public void CreateMatch(User user, int id)
     {

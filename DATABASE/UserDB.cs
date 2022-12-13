@@ -21,31 +21,31 @@ public class UserDB : IUserHandeler
         int rows = 0;
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=2gether;Uid=root;Pwd=;"))
         {
-            string query = "DELETE FROM user_account WHERE id = @id";
+            string query = "DELETE FROM user_account WHERE id = @id ";
             rows = connection.ExecuteScalar<int>(query, param: user);
         }
         return rows;
     }
-    public int UpdateUserEmail(User user, string userEmail)
-    {
-        int rows = 0;
-        using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=2gether;Uid=root;Pwd=;"))
-        {
-            string? query = "UPDATE user_account SET email = @UserEmail WHERE id = @id";
-            rows = connection.ExecuteScalar<int>(query, param: new { @userEmail = userEmail, @id = user.Id });
-        }
-        return rows;
-    }
-    public int UpdateUserPassword(User user)
-    {
-        int rows = 0;
-        using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=2gether;Uid=root;Pwd=;"))
-        {
-            string query = "UPDATE user_account SET pass_word = @PassWord WHERE id = @id";
-            rows = connection.ExecuteScalar<int>(query, param: user);
-        }
-        return rows;
-    }
+    // public int UpdateUserEmail(User user, string userEmail)
+    // {
+    //     int rows = 0;
+    //     using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=2gether;Uid=root;Pwd=;"))
+    //     {
+    //         string? query = "UPDATE user_account SET email = @UserEmail WHERE id = @id";
+    //         rows = connection.ExecuteScalar<int>(query, param: new { @userEmail = userEmail, @id = user.Id });
+    //     }
+    //     return rows;
+    // }
+    // public int UpdateUserPassword(User user)
+    // {
+    //     int rows = 0;
+    //     using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=2gether;Uid=root;Pwd=;"))
+    //     {
+    //         string query = "UPDATE user_account SET pass_word = @PassWord WHERE id = @id";
+    //         rows = connection.ExecuteScalar<int>(query, param: user);
+    //     }
+    //     return rows;
+    // }
     public bool UserEmailExists(string email)
     {
         bool rows = true;

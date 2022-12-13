@@ -3,6 +3,9 @@ namespace BASE;
 public class User
 {
     public int Id { get; set; }
+    public int MatchId{get;set;}
+    public string MatchName{get;set;}
+    public string MatchLastName{get;set;}
     public string Name { get; set; }
     public string LastName { get; set; }
     public string? Gender { get; set; }
@@ -60,7 +63,7 @@ public class User
 
     public override string ToString()
     {
-        return $"Id: {Id} Namn: {Name} Efternamn: {LastName}";
+        return $" {Name} {LastName} <3  {MatchName}  {MatchLastName}";
     }
 
 }

@@ -11,20 +11,39 @@ public class MatchService : IMatchService
         _matchHandeler = matchHandeler;
     }
 
-    public List<User> GetMatches(User user)
+    public void SetMatches(User user)  //denna sätter matchningarna 
     {
         try
         {
             List<User> users = _matchHandeler.GetUsersByLandscapeAndAge(user);
+            List<User> usersToMatches = new();
+            foreach (User matches in users)
+            {
+                int id = _matchHandeler.CheckIfMatchesExists(user, matches.Id);
+                if(id < 1)
+                {
+                    usersToMatches.Add(matches);
+                }
+            }
+            //DOM SOM EJ ÄR I MATCHES ÄN
+            foreach (User u in usersToMatches)
+            {
+                _matchHandeler.CreateMatch(user, u.Id);
+            }
+            //hämta MATCHES som returneras till ui
             //när matchningarna är satta i matches
             //då kommer en metod select matchninarna i matches istället för denna för att se alla matchninar
-            return users;
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
-            return null;
         }
+    }
+    public List<User> GetMatches(User user)
+    {
+        List<User> myMatches = new();
+       myMatches = _matchHandeler.GetMatches(user);
+        return myMatches;
     }
     public bool LandscapeMatch(User user)
     {
@@ -39,18 +58,7 @@ public class MatchService : IMatchService
             return false;
         }
     }
-
-    public void SetTheMatches(User user)
-    {
-        List<User> matches = _matchHandeler.GetUsersByLandscapeAndAge(user);
-        foreach (User item in matches)
-        {
-            _matchHandeler.CreateMatch(user, item.Id);
-        }
-
-    }
-
-      public void SetTheYesAndNO(User user, string word)
+    public void SetTheYesAndNO(User user, string word)
     {
         List<User> matches = _matchHandeler.GetUsersByLandscapeAndAge(user);
         foreach (User item in matches)
@@ -63,26 +71,26 @@ public class MatchService : IMatchService
     {
         foreach (int item in interests)
         {
-            _matchHandeler.InsertInterestsChoise( user,item);
-        }        
+            _matchHandeler.InsertInterestsChoise(user, item);
+        }
 
     }
 
-     public void InsertAgesChoise(User user, List<int> ages)
+    public void InsertAgesChoise(User user, List<int> ages)
     {
         foreach (int item in ages)
         {
-            _matchHandeler.InsertAgesChoise( user,item);
-        }        
+            _matchHandeler.InsertAgesChoise(user, item);
+        }
 
     }
 
-       public void InsertLandscapesChoise(User user, List<int> landsScapes)
+    public void InsertLandscapesChoise(User user, List<int> landsScapes)
     {
         foreach (int item in landsScapes)
         {
-            _matchHandeler.InsertLandscapesChoise( user,item);
-        }        
+            _matchHandeler.InsertLandscapesChoise(user, item);
+        }
 
     }
 }
