@@ -10,6 +10,6 @@ public interface IMatchService
     public void InsertAgesChoise(User user, List<int> ages);
     public void InsertLandscapesChoise(User user, List<int> landsScapes);
     // public void SayYesOrNOToMatch(User user);
-    public void SetTheYesAndNO(User user, string word);
+    //public void SetTheYesAndNO(User user, string word);
 
 }

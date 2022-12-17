@@ -35,9 +35,8 @@ public class MatchOperator
         int interests = ConsoleInput.GetInt("Choose interests: ");
         myInterests.Add(interests);
         _matchService.InsertInterestsChoise(user, myInterests);
-
-
     }
+
     public void ShowAgeSpan()
     {
         Dictionary<int, string> Ages = new Dictionary<int, string>();
@@ -55,16 +54,17 @@ public class MatchOperator
             Console.WriteLine($"[{age.Key}] {age.Value}");
         }
     }
+
     public void ShowInterests()
     {
         int index = 1;
-
         foreach (string name in Enum.GetNames(typeof(Interests)))
         {
             Console.WriteLine($"[{index}] {name}");
             index++;
         }
     }
+
     public enum Interests
     {
         Hemmamysarn = 1,

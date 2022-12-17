@@ -13,6 +13,26 @@ public class UserService : IUserService
     }
     public UserService() { }
 
+    public bool UpdateUserEmail(User user, string email)
+    {
+        bool rows = false;
+        if (_userHandeler.UpdateUserEmail(user, email) < 1)
+        {
+            rows = true;
+        }
+        return rows;
+    }
+
+    public bool UpdateUserPassword(User user, string password)
+     {
+        bool rows = false;
+        if (_userHandeler.UpdateUserPassword(user, password) < 1)
+        {
+            rows = true;
+        }
+        return rows;
+    }
+
     public bool DeleteUser(User user)
     {
         int rows = 0;

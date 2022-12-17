@@ -6,8 +6,6 @@ internal class Program
     private static void Main(string[] args)
 
     {
-
-
         MatchService matchService = new(new MatchDB());
         LoginService loginService = new(new UserDB());
         UserService userService = new(new UserDB());
@@ -15,13 +13,15 @@ internal class Program
         MatchOperator matchOperator = new(userService, loginService, matchService);
         UserOperator userOperator = new(userService, loginService, matchService);
         MessageOperator messageOperator = new(userService, loginService, matchService, messageService);
+
         User user = new();
         int answer = 0;
         bool loggedIn = false;
+
         while (loggedIn)
             Console.WriteLine("2gether");
-        answer = ConsoleInput.GetInt($"[1] Skapa konto [2] Logga in");
 
+        answer = ConsoleInput.GetInt($"[1] Skapa konto [2] Logga in");
         switch (answer)
         {
             case 1:
@@ -30,7 +30,6 @@ internal class Program
                 break;
             case 2:
                 int id = userOperator.LoginUser();
-                // hämta ut hela usern på detta id
                 user = new();
                 user = userOperator.GetUser(id);
                 if (user == null) break;
@@ -39,7 +38,9 @@ internal class Program
 
                 while (loggedIn)
                 {
-                    int answer1 = ConsoleInput.GetInt($"Welcome {user.Name}\n  [1] Logga ut  [2] Your description [3] Make a match\n [4] My matches  [5] Delete matches [6] My messages [7] Write message\n [8] Delete my account");
+                    int answer1 = ConsoleInput.GetInt($"Inlogged as: {user.Name}\n [1] Log out [2] Your description [3] Make a match\n " +
+                                                                               "[4] My matches [5] Delete matches [6] My messages " +
+                                                                               "[7] Update email\n [8] Update password [9] Delete my account");
                     switch (answer1)
                     {
                         case 1:
@@ -53,29 +54,28 @@ internal class Program
                             matchService.SetMatches(user); //sätt dit den.
                             break;
                         case 4:
-                            userOperator.ShowUsers(user);
+                            userOperator.ShowMyMatches(user);
                             break;
                         case 5:
-                            userOperator.ShowUsers(user);
-                           // userOperator.DeleteMyMatch();
-                           //delete match här
+                            userOperator.ShowMyMatches(user);
+                            // userOperator.DeleteMyMatch();
+                            //delete match här
                             break;
                         case 6:
-                            userOperator.ShowUsers(user);
+                            userOperator.ShowMyMatches(user);
                             messageOperator.ShowSenders(user);
                             int id2 = ConsoleInput.GetInt("Choose conversation: ");
                             messageOperator.ShowMessageConversation(user, id2);
                             messageOperator.SendMessage(id2, user);
                             break;
                         case 7:
-                            Message message = new();
-                            int senderId = 0;
-                            int receiverId = 0;
-                            messageOperator.SendMessage(receiverId, user);
+                            userOperator.UpdateUserEmail(user); //kan en delegat kolla så nya mailen inte finns?
                             break;
                         case 8:
+                            userOperator.UpdateUserPassword(user);
+                            break;
+                        case 9:
                             userOperator.DeleteUser(user);
-                            
                             break;
                     }
                 }

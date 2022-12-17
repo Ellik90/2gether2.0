@@ -17,7 +17,7 @@ public class UserOperator
 
     public void DeleteUser(User user)
     {
-         try
+        try
         {
             _userService.DeleteUser(user);
             Console.WriteLine("Account deleted!");
@@ -86,6 +86,7 @@ public class UserOperator
         }
         return user.Id;
     }
+
     public void ShowLandscapes()
     {
         int index = 0;
@@ -95,32 +96,26 @@ public class UserOperator
             Console.WriteLine($"[{index}] {name}");
             index++;
         }
-
     }
 
     public void UpdateUserDescription(User user)
     {
-
         string description = ConsoleInput.GetString("About me: ");
         _userService.UpdateUserDescription(user, description);
-
     }
 
-    public void SayYesOrNOToMatch(User user)
+    public void UpdateUserEmail(User user)
     {
-        int num = ConsoleInput.GetInt("Is this your match? [1]yes  [2]No: "); //kolla över denna knasiga
-        if (num == 1)
-        {
-            string word = "yes";
-            _matchService.SetTheYesAndNO(user, word);
-        }
-        else
-        {
-            return;
-        }
-
-
+        string email = ConsoleInput.GetString("New email: ");
+        _userService.UpdateUserEmail(user, email);
     }
+
+    public void UpdateUserPassword(User user)
+    {
+        string password = ConsoleInput.GetString("New Password: ");
+        _userService.UpdateUserPassword(user, password);
+    }
+
     public User GetUser(int id)
     {
         User user = _userService.GetUser(id);
@@ -134,9 +129,9 @@ public class UserOperator
         {
             return user;
         }
-
     }
-    public void ShowUsers(User user)
+
+    public void ShowMyMatches(User user)
     {
         List<User> list = new();
         list = _matchService.GetMatches(user);
@@ -149,29 +144,8 @@ public class UserOperator
             }
         }
     }
-
-
-
-
 }
 
-//     do
-//     {
-//         user.SocialSecurityNumber = ConsoleInput.GetString("social security number: ");
-//         if ((_validator.ValidateSocialSecurityNumber(user.SocialSecurityNumber) == false))
-//         {
-//             Console.WriteLine("social security number incorrect");
-//             exists = true;
-//         }
-//         else
-//         {
-//             exists = false;
-//         }
-//     } while (exists);
 
-//     user = _loginService.MakeNewLogIn(user);
-//     _userService.MakeUser(user);
-//     return user;
-// }
 
 

@@ -16,10 +16,11 @@ public class MessageOperator
         _matchService = matchService;
         _messageService = messageService;
     }
+
     public void ShowSenders(User user)
     {
         List<User> users = _messageService.GetMySenders(user.Id);
-        foreach(User item in users)
+        foreach (User item in users)
         {
             Console.WriteLine($" {item.Name}   [{item.Id}]");
         }
@@ -41,14 +42,13 @@ public class MessageOperator
             Console.WriteLine("No conversation found.");
         }
     }
+
     public void SendMessage(int receiverId, User user)
     {
-
         string content = ConsoleInput.GetString("Content: ");
         Message newMessage = new(content);
         newMessage.SenderId = user.Id;
         newMessage.ReceiverId = receiverId;
-
         try
         {
             _messageService.MakeMessage(newMessage);
@@ -61,19 +61,5 @@ public class MessageOperator
     }
 }
 
-// public Message GetMessages(int id)
-// {
-//     Message message = _messageService.GetMessages(id);
-//     //Har den här tillsvidare1
-//     if (message == null)
-//     {
-//         Console.WriteLine("You dont have any messages");
-//         return null;
-//     }
-//     else
-//     {
-//         return message;
-//     }
 
-// }
 
