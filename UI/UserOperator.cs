@@ -28,10 +28,10 @@ public class UserOperator
             Console.WriteLine("The site is under construction. Try again later.");
         }
     }
-
+    
     public User CreateUser()
     {
-        LandScape landScape = new();
+        //LandScape landScape = new();
         User user = new();
         bool exists = true;
 
@@ -145,6 +145,7 @@ public class UserOperator
         }
     }
 }
+
 
 
 

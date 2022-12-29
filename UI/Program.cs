@@ -69,7 +69,7 @@ internal class Program
                             messageOperator.SendMessage(id2, user);
                             break;
                         case 7:
-                            userOperator.UpdateUserEmail(user); //kan en delegat kolla så nya mailen inte finns?
+                            userOperator.UpdateUserEmail(user);                                                   
                             break;
                         case 8:
                             userOperator.UpdateUserPassword(user);
@@ -84,4 +84,6 @@ internal class Program
         }
 
     }
+
+
 }

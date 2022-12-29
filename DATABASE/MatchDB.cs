@@ -68,36 +68,26 @@ public class MatchDB : IMatchHandeler
         }
         return rows;
     }
-
-    public List<User> GetUsersByLandscapeAndAge(User user)
-    {
-        List<User> matchUsers = new();
-        using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=2gether;Uid=root;Pwd=;"))
-        {
-            string query = "SELECT u.id AS 'Id', u.first_name AS 'Name', u.last_name AS 'LastName' FROM user_account u INNER JOIN user_account u2 " +
-                           "INNER JOIN user_landscape ul ON u.land_scape_id = ul.landscape_id INNER JOIN user_age ua " +
-                           "ON ua.user_account_id = u2.id INNER JOIN age a ON a.id = ua.age_id WHERE u2.id = @Id " +
-                           "AND u.age > a.lower_age AND u.age < a.upper_age AND u.id != @Id GROUP BY u.id;";
-            matchUsers = connection.Query<User>(query, param: user).ToList();
-        }
-        return matchUsers;
-    }
-
     public List<User> GetUsersByLandscapeAndAgeAndInterests(User user) //BORDE JAG HA DENNA?
     {
         List<User> matchUsers = new();
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=2gether;Uid=root;Pwd=;"))
         {
-            string query = "SELECT u.id AS 'Id', u.first_name AS 'Name', u.last_name AS 'LastName' FROM user_account u INNER JOIN user_account u2 " +
-                           "INNER JOIN user_landscape ul ON u.land_scape_id = ul.landscape_id INNER JOIN user_age ua " +
-                           "ON ua.user_account_id = u2.id INNER JOIN age a ON a.id = ua.age_id INNER JOIN user_interests ui" +
-                           "ON ui.user_account_id = u2.id INNER JOIN interests i ON i.id = ui.interests_id  " +
-                           "WHERE u2.id = @Id AND u.age > a.lower_age AND u.age < a.upper_age AND u.id != @Id GROUP BY u.id;";
+            string query = " SELECT u.id, u.first_name, u.last_name FROM user_account u " +
+                           " INNER JOIN user_account u2 INNER JOIN user_landscape ul " +
+                           " ON ul.user_account_id = u2.id INNER JOIN user_interests ui2 " +
+                           " ON ui2.user_account_id = u2.id  INNER JOIN user_interests ui1 " +
+                           " ON ui1.user_account_id = u.id INNER JOIN user_age ua " +
+                           " ON ua.user_account_id = u2.id INNER JOIN age a " +
+                           " ON a.id = ua.age_id WHERE u.land_scape_id = ul.landscape_id " +
+                           " AND ui1.interests_id = ui2.interests_id " +
+                           " AND u.age >= a.lower_age AND u.age <= a.upper_age " +
+                           " AND u2.id = @id " +
+                           " AND u.id != @Id GROUP BY u.id; ";
             matchUsers = connection.Query<User>(query, param: user).ToList();
         }
         return matchUsers;
     }
-
     public void CreateMatch(User user, int id)
     {
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=2gether;Uid=root;Pwd=;"))

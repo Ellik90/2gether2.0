@@ -27,7 +27,7 @@ public class UserDB : IUserHandeler
         }
         return rows;
     }
-
+    
     public bool UserEmailExists(string email)
     {
         bool rows = true;
@@ -126,6 +126,7 @@ public class UserDB : IUserHandeler
     //     }
     // }
 }
+
 
 
 

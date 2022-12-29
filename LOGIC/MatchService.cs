@@ -15,7 +15,7 @@ public class MatchService : IMatchService
     {
         try
         {
-            List<User> users = _matchHandeler.GetUsersByLandscapeAndAge(user);
+            List<User> users = _matchHandeler.GetUsersByLandscapeAndAgeAndInterests(user);
             List<User> usersToMatches = new();
             foreach (User matches in users)
             {

@@ -75,11 +75,12 @@ public class UserService : IUserService
         }
 
     }
+    
     public bool CheckUserEmailExists(string email)
     {
         bool rows = false;
 
-        if (_userHandeler.UserEmailExists(email) == true)
+        if (_userHandeler.UserEmailExists(email) == true) 
         {
             rows = true;
         }
