@@ -13,11 +13,11 @@ public class MessageService : IMessageService
     }
     public MessageService() { }
 
-    public List<User> GetMySenders(int id)
-    {
-        List<User> users = _messageHandeler.GetMySenders(id);
-        return users;
-    }
+    // public List<User> GetMySenders(int id)
+    // {
+    //     List<User> users = _messageHandeler.GetMySenders(id);
+    //     return users;
+    // }
     
     public void MakeMessage(Message message)
     {

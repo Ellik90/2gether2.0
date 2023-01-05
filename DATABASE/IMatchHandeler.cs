@@ -2,8 +2,7 @@ using BASE;
 namespace DATABASE;
 public interface IMatchHandeler
 {
-     public int LandscapeMatch(User user);
-    // public List<User> GetUsersByLandscapeAndAge(User user);
+   
      public List<User> GetUsersByLandscapeAndAgeAndInterests(User user);
      public void CreateMatch(User user, int id);
      public void InsertInterestsChoise(User user, int interests);
@@ -12,6 +11,6 @@ public interface IMatchHandeler
      public void SayYesOrNoToMatch(User user, int id);
      public List<User> GetMatches(User user);
      public int CheckIfMatchesExists(User user, int otherUserId);
-    // public List<User> GetUsersByLandscapeAndAgeAndInterests(User user);
+    
     
 }

@@ -1,7 +1,6 @@
 using Dapper;
 using MySqlConnector;
 using BASE;
-//using System.Collections.Generic;
 namespace DATABASE;
 public class MatchDB : IMatchHandeler
 {
@@ -58,28 +57,24 @@ public class MatchDB : IMatchHandeler
         }
     }
 
-    public int LandscapeMatch(User user)
-    {
-        int rows = 0;
-        using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=2gether;Uid=root;Pwd=;"))
-        {
-            string query = "INSERT INTO user_landscape(landscape_id, user_account_id) VALUES (@LandscapeId,@userId);";
-            rows = connection.ExecuteScalar<int>(query, param: user);
-        }
-        return rows;
-    }
-    public List<User> GetUsersByLandscapeAndAgeAndInterests(User user) //BORDE JAG HA DENNA?
+    public List<User> GetUsersByLandscapeAndAgeAndInterests(User user) 
     {
         List<User> matchUsers = new();
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=2gether;Uid=root;Pwd=;"))
         {
             string query = " SELECT u.id, u.first_name, u.last_name FROM user_account u " +
-                           " INNER JOIN user_account u2 INNER JOIN user_landscape ul " +
-                           " ON ul.user_account_id = u2.id INNER JOIN user_interests ui2 " +
-                           " ON ui2.user_account_id = u2.id  INNER JOIN user_interests ui1 " +
-                           " ON ui1.user_account_id = u.id INNER JOIN user_age ua " +
-                           " ON ua.user_account_id = u2.id INNER JOIN age a " +
-                           " ON a.id = ua.age_id WHERE u.land_scape_id = ul.landscape_id " +
+                           " INNER JOIN user_account u2 " +
+                           " INNER JOIN user_landscape ul " +
+                           " ON ul.user_account_id = u2.id " + 
+                           " INNER JOIN user_interests ui2 " +
+                           " ON ui2.user_account_id = u2.id " +
+                           " INNER JOIN user_interests ui1 " +
+                           " ON ui1.user_account_id = u.id " +
+                           " INNER JOIN user_age ua " +
+                           " ON ua.user_account_id = u2.id " +
+                           " INNER JOIN age a " +
+                           " ON a.id = ua.age_id " +
+                           " WHERE u.land_scape_id = ul.landscape_id " +
                            " AND ui1.interests_id = ui2.interests_id " +
                            " AND u.age >= a.lower_age AND u.age <= a.upper_age " +
                            " AND u2.id = @id " +

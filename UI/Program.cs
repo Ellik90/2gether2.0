@@ -63,7 +63,7 @@ internal class Program
                             break;
                         case 6:
                             userOperator.ShowMyMatches(user);
-                            messageOperator.ShowSenders(user);
+                            //messageOperator.ShowSenders(user);
                             int id2 = ConsoleInput.GetInt("Choose conversation: ");
                             messageOperator.ShowMessageConversation(user, id2);
                             messageOperator.SendMessage(id2, user);

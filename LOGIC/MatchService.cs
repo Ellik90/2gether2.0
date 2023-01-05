@@ -44,19 +44,19 @@ public class MatchService : IMatchService
         return myMatches;
     }
 
-    public bool LandscapeMatch(User user)
-    {
-        int rows = 0;
-        rows = _matchHandeler.LandscapeMatch(user);
-        if (rows > 0)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
+    // public bool LandscapeMatch(User user)
+    // {
+    //     int rows = 0;
+    //     rows = _matchHandeler.LandscapeMatch(user);
+    //     if (rows > 0)
+    //     {
+    //         return true;
+    //     }
+    //     else
+    //     {
+    //         return false;
+    //     }
+    // }
 
     // public void SetTheYesAndNO(User user, string word)
     // {

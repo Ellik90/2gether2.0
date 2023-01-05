@@ -17,14 +17,14 @@ public class MessageOperator
         _messageService = messageService;
     }
 
-    public void ShowSenders(User user)
-    {
-        List<User> users = _messageService.GetMySenders(user.Id);
-        foreach (User item in users)
-        {
-            Console.WriteLine($" {item.Name}   [{item.Id}]");
-        }
-    }
+    // public void ShowSenders(User user)
+    // {
+    //     List<User> users = _messageService.GetMySenders(user.Id);
+    //     foreach (User item in users)
+    //     {
+    //         Console.WriteLine($" {item.Name}   [{item.Id}]");
+    //     }
+    // }
 
     public void ShowMessageConversation(User user, int id2)
     {
@@ -56,7 +56,7 @@ public class MessageOperator
         }
         catch (Exception e)
         {
-            Console.WriteLine(e.Message);
+            Console.WriteLine("Couldnt send message, make sure you have the right conversation id!");
         }
     }
 }

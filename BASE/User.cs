@@ -27,6 +27,7 @@ public class User
     {
 
     }
+    // ta bort enum och hämta ut lanskapen från databasen ist
     public enum Landscapes
     {
         Undefined,
