@@ -100,7 +100,7 @@ public class UserDB : IUserHandeler
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=2gether;Uid=root;Pwd=;"))
         {
             string query = " SELECT u.id AS 'id', u.personal_number AS 'personalNumber', u.first_name AS 'name', u.email AS 'email', u.pass_word AS 'password', l.name AS 'landscape'" +
-                           "FROM user_account u INNER JOIN landscape l ON u.land_scape_id = l.id WHERE u.id = @id;";
+                           " FROM user_account u INNER JOIN landscape l ON u.land_scape_id = l.id WHERE u.id = @id;";
             try
             {
                 user = connection.QuerySingle<User>(query, new { @id = id });

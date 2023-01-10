@@ -79,6 +79,7 @@ public class MatchDB : IMatchHandeler
                            " AND u.age >= a.lower_age AND u.age <= a.upper_age " +
                            " AND u2.id = @id " +
                            " AND u.id != @Id GROUP BY u.id; ";
+                           
             matchUsers = connection.Query<User>(query, param: user).ToList();
         }
         return matchUsers;

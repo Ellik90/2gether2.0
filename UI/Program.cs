@@ -51,7 +51,7 @@ internal class Program
                             break;
                         case 3:
                             matchOperator.ChooseCriterias(user);
-                            matchService.SetMatches(user); //sätt dit den.
+                            matchService.SetMatches(user); 
                             break;
                         case 4:
                             userOperator.ShowMyMatches(user);

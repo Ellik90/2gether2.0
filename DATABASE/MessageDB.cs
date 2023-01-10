@@ -15,18 +15,6 @@ public class MessageDB : IMessageHandeler
         return messageId;
     }
 
-    // public List<User> GetMySenders(int id)
-    // {
-    //     List<User> users = new();
-    //     using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=2gether;Uid=root;Pwd=;"))
-    //     {
-    //         string query = "SELECT ua.id AS 'Id' ,ua.first_name AS 'Name' " +
-    //                        "FROM user_account ua INNER JOIN message m ON m.sender_id = ua.id " +
-    //                        "WHERE m.receiver_id = @id ";
-    //         users = connection.Query<User>(query, new { @id = id }).ToList();
-    //     }
-    //     return users;
-    // }
 
     public List<Message> GetMyMessages(User user, int id2)
     {
@@ -41,3 +29,16 @@ public class MessageDB : IMessageHandeler
         return messages;
     }
 }
+
+    // public List<User> GetMySenders(int id)
+    // {
+    //     List<User> users = new();
+    //     using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=2gether;Uid=root;Pwd=;"))
+    //     {
+    //         string query = "SELECT ua.id AS 'Id' ,ua.first_name AS 'Name' " +
+    //                        "FROM user_account ua INNER JOIN message m ON m.sender_id = ua.id " +
+    //                        "WHERE m.receiver_id = @id ";
+    //         users = connection.Query<User>(query, new { @id = id }).ToList();
+    //     }
+    //     return users;
+    // }
